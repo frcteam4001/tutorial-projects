@@ -1,0 +1,44 @@
+package org.usfirst.frc.team4001.robot;
+
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+ */
+public class Robot extends IterativeRobot {
+	Victor leftDrive = new Victor (0);
+	Victor rightDrive = new Victor (1);
+	Joystick driverStick = new Joystick (0);
+	
+	@Override
+	public void robotInit() {
+
+	}
+
+
+	@Override
+	public void autonomousInit() {
+	}
+
+
+	@Override
+	public void autonomousPeriodic() {
+	}
+
+
+	@Override
+	public void teleopPeriodic() {
+	double leftStick = driverStick.getRawAxis(1);
+	double rightStick = driverStick.getRawAxis(5);
+	
+	leftDrive.set(leftStick);
+	rightDrive.set(rightStick);
+	}
+
+	@Override
+	public void testPeriodic() {
+	}
+}
+

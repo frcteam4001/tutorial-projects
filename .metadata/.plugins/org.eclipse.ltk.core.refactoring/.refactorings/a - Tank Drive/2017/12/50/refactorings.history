@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete element from project &apos;a - Tank Drive&apos;&#x0D;&#x0A;- Original project: &apos;a - Tank Drive&apos;&#x0D;&#x0A;- Original element: &apos;tank drive with data table from python and arduino displayed on driver station.java&apos;" description="Delete element" element1="src/org/usfirst/frc/team4001/robot/tank drive with data table from python and arduino displayed on driver station.java" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="1" stamp="1513180323357" subPackages="false" version="1.0"/>
+</session>

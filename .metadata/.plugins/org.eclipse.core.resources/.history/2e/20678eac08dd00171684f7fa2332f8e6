@@ -1,0 +1,68 @@
+package org.usfirst.frc.team4001.robot;
+
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+public class Robot extends IterativeRobot {
+	Victor leftDrive = new Victor (0);
+	Victor rightDrive = new Victor (1);
+	Victor armMotor = new Victor (2);
+	Joystick driverStick = new Joystick (0);
+	DigitalInput limitSwitch = new DigitalInput (0);
+	AnalogInput potent = new AnalogInput (0);
+	Timer timer;
+	
+	@Override
+	public void robotInit() {
+
+	}
+
+
+	@Override
+	public void autonomousInit() {
+		timer = new Timer();
+		timer.reset();
+		timer.start();
+	}
+
+
+	@Override
+	public void autonomousPeriodic() {
+		if(timer.get() < 10){
+			leftDrive.set(0.5);
+			rightDrive.set(0.5);
+		}
+		else {
+			leftDrive.set(0.0);
+			rightDrive.set(0.0);
+		}
+	}
+
+
+	@Override
+	public void teleopPeriodic() {
+	double leftStick = driverStick.getRawAxis(1);
+	double rightStick = driverStick.getRawAxis(5);
+	
+	leftDrive.set(leftStick);
+	rightDrive.set(rightStick);
+	
+	System.out.println("Limit Switch Value: " + limitSwitch.get());
+	System.out.println("Analog Input Value: " + potent.getAverageValue());
+	System.out.println("Arm Motor Value: " + armMotor.get());
+	
+	
+	
+	}
+
+	@Override
+	public void testPeriodic() {
+	}
+}
+

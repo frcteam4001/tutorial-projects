@@ -1,0 +1,63 @@
+package org.usfirst.frc.team4001.robot;
+
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+
+public class Robot extends IterativeRobot {
+	Victor LeftDrive = new Victor (0);
+	Victor RightDrive = new Victor (1);
+	Victor Climbermotor = new Victor (2);
+	Joystick driverstick = new Joystick(0);
+	
+			
+	@Override
+	public void robotInit() {
+		chooser.addDefault("Default Auto", defaultAuto);
+		chooser.addObject("My Auto", customAuto);
+		SmartDashboard.putData("Auto choices", chooser);
+	}
+
+
+	@Override
+	public void autonomousInit() {
+		autoSelected = chooser.getSelected();
+		// autoSelected = SmartDashboard.getString("Auto Selector",
+		// defaultAuto);
+		System.out.println("Auto selected: " + autoSelected);
+	}
+
+	
+	@Override
+	public void autonomousPeriodic() {
+		switch (autoSelected) {
+		case customAuto:
+			// Put custom auto code here
+			break;
+		case defaultAuto:
+		default:
+			// Put default auto code here
+			break;
+		}
+	}
+	
+	@Override
+	public void teleopPeriodic() {
+		double LeftStickValue = driverstick.getRawAxis(1);
+		double RightStickValue = driverstick.getRawAxis(3);
+	
+		 LeftDrive.set(LeftStickValue);
+		 RightDrive.set(RightStickValue(10));{
+		
+		 
+		 if(driverstick.getRawButton(button))
+	}
+
+	@Override
+	public void testPeriodic() {
+	}
+}
+

@@ -1,0 +1,55 @@
+package org.usfirst.frc.team4001.robot;
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+public class Robot extends IterativeRobot {
+	RobotDrive myRobot;
+	Victor LeftDrive;
+	Victor RightDrive;
+	Joystick stick;
+	Timer timer;
+	@Override
+	public void robotInit() {
+		// declare left, right speed controllers
+		 LeftDrive = new Victor (0);
+		 RightDrive = new Victor (1);
+		
+		// create robot drive specifying speed controllers instead of channels
+		myRobot = new RobotDrive(LeftDrive, RightDrive);
+		
+		// inverse the left and right motors
+		LeftDrive.setInverted(true);
+		RightDrive.setInverted(true);
+		
+		stick = new Joystick(0);
+		timer = new Timer();
+}
+	@Override
+	public void autonomousInit() {
+		timer.reset();
+		timer.start();
+}
+	@Override
+	public void autonomousPeriodic() {
+	if(timer.get()<5.0) {
+		LeftDrive.set(0.5);
+		RightDrive.set(0.5);
+	}else {
+		myRobot.drive(0.0, 0.0);
+	}
+}
+	@Override
+	public void teleopPeriodic() {
+		myRobot.arcadeDrive(stick);
+	}
+	@Override
+	public void testPeriodic() {
+		LiveWindow.run();
+	}
+}
+

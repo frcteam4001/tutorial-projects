@@ -1,0 +1,97 @@
+package org.usfirst.frc.team4001.robot;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+public class Robot extends IterativeRobot {
+	RobotDrive myRobot;
+	Victor LeftDrive;
+	Victor RightDrive;
+	Joystick stick;
+	// Gyro gyro;
+	ADXRS450_Gyro gyro;
+	
+	//<setting for="accelerometer">
+	
+	I2C i2cBus;
+	short accelX = 0, accelY = 0, accelZ = 0;
+	byte[] i2cRead = new byte[6];
+	ByteBuffer buffer = ByteBuffer.wrap(i2cRead);
+	//</setting>
+
+	 double Kp = 0.03;
+	@Override
+	public void robotInit() {
+		LeftDrive = new Victor (0);
+		RightDrive = new Victor (1);
+		myRobot = new RobotDrive(LeftDrive, RightDrive);
+		LeftDrive.setInverted(true);
+		RightDrive.setInverted(true);
+		stick = new Joystick(0);
+		//gyro = new AnalogGyro(1);
+		i2cBus = new I2C(I2C.Port.kOnboard, 0x1E);
+		myRobot.setExpiration(0.1);
+		gyro = new ADXRS450_Gyro();
+		
+}
+		
+	@Override
+	public void autonomousPeriodic() {
+
+  	//gyro.reset();
+	while (isAutonomous()) {
+	     //double angle = gyro.getAngle(); // get current heading
+	     //myRobot.drive(-1.0, -angle*Kp); // drive towards heading 0
+	     Timer.delay(0.004);
+    }
+	     myRobot.drive(0.0, 0.0);	
+	
+		
+	}
+	
+	@Override
+	public void teleopPeriodic() {
+		myRobot.arcadeDrive(stick);
+	}
+	@Override
+	public void testPeriodic()
+	{
+		LiveWindow.run();
+		/*
+		//this code is to get the accelerometer's value
+		i2cBus.write(0x02, 0x00);
+		i2cBus.read(0x03, 6, i2cRead);
+		buffer.order(ByteOrder.BIG_ENDIAN);
+		
+		try
+		{
+			accelX = buffer.getShort();
+			accelY = buffer.getShort();
+			accelZ = buffer.getShort();
+		}
+		catch(Exception e)
+		{
+			System.out.println("Robot.testPeriodic() error: " + e.getMessage());
+		}
+		
+		
+		SmartDashboard.putNumber("Accelerometer X", accelX);
+		SmartDashboard.putNumber("Accelerometer Y", accelY);
+		SmartDashboard.putNumber("Accelerometer Z", accelZ);
+		*/
+		//Retrieve angle from gyro object
+		double angol = gyro.getAngle();
+		System.out.println(angol);
+	}
+}
