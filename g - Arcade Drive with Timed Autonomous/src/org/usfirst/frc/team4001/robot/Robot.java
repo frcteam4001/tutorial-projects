@@ -22,6 +22,9 @@ public class Robot extends IterativeRobot {
 		RightDrive.setInverted(true);
 		stick = new Joystick(0);
 		timer = new Timer();}
+		double leftStickValue;
+		double rightStickValue;
+	
 	@Override
 	public void autonomousInit() {
 		timer.reset();
@@ -54,7 +57,7 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void teleopPeriodic() {
-		myRobot.arcadeDrive(stick);
+		myRobot.arcadeDrive();
 	}
 	@Override
 	public void testPeriodic() {

@@ -12,6 +12,8 @@ public class Robot extends IterativeRobot {
 	Victor LeftDrive;
 	Victor RightDrive;
 	Joystick stick;
+	double leftStickValue;
+	double rightStickValue;
 		@Override
 	public void robotInit() {
 		LeftDrive = new Victor (0);
@@ -29,7 +31,9 @@ public class Robot extends IterativeRobot {
 	}	
 	@Override
 	public void teleopPeriodic() {
-		myRobot.arcadeDrive(stick);
+		leftStickValue = stick.getRawAxis(1);
+		rightStickValue = stick.getRawAxis(4);
+		myRobot.arcadeDrive(leftStickValue, rightStickValue);
 	}
 	@Override
 	public void testPeriodic() {
